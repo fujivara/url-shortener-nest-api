@@ -6,25 +6,21 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "url-shortener/node_modules/.bin/nest build",
-    "format": "url-shortener/node_modules/.bin/prettier --write \\\"src/**/*.ts\\\" \\\"test/**/*.ts\\\"",
-    "start": "url-shortener/node_modules/.bin/nest start",
-    "start:dev": "url-shortener/node_modules/.bin/nest start --watch",
-    "start:debug": "url-shortener/node_modules/.bin/nest start --debug --watch",
-    "start:prod": "node dist/main",
-    "lint": "url-shortener/node_modules/.bin/eslint \\\"{src,apps,libs,test}/**/*.ts\\\" --fix",
-    "test": "url-shortener/node_modules/.bin/jest",
-    "test:watch": "url-shortener/node_modules/.bin/jest --watch",
-    "test:cov": "url-shortener/node_modules/.bin/jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register url-shortener/node_modules/.bin/jest --runInBand",
-    "test:e2e": "url-shortener/node_modules/.bin/jest --config ./test/jest-e2e.json"
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@prisma/client": "^5.7.0",
+    "pg": "^8.11.3",
+    "prisma": "^5.7.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "typeorm": "^0.3.17"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
