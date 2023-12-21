@@ -34,14 +34,25 @@ export class AuthService {
     return { token: this.jwtService.sign(payload) };
   }
 
-  async signUp (user: AuthDto) {
-    if (await this.userRepository.find({ username: user.username })) {
+  async signUp (data: AuthDto) {
+    const users = await this.userRepository.findManyWhere({
+      OR: [
+        {
+          username: data.username,
+        },
+        {
+          email: data.email,
+        },
+      ],
+    });
+
+    if (users.length) {
       throw new ConflictException('User with such credentials already exist');
     }
 
     const newUser = await  this.userRepository.create({
-      ...user,
-      password: await this.hashPass(user.password),
+      ...data,
+      password: await this.hashPass(data.password),
     });
 
     delete newUser.password;

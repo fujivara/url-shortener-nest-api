@@ -6,6 +6,12 @@ import { Prisma } from '@prisma/client';
 export class UserRepository {
   constructor (private prismaService: PrismaService) {}
 
+  async findManyWhere (where: Prisma.UserWhereInput) {
+    return this.prismaService.user.findMany({
+      where,
+    });
+  }
+
   async find (where: Prisma.UserWhereUniqueInput) {
     return this.prismaService.user.findUnique({
       where,
