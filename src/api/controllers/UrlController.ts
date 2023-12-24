@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Post, Response } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Response, UseGuards } from '@nestjs/common';
 import { UrlService } from '../services/UrlService';
 import { CreateUrlDto } from '../dtos/CreateUrlDto';
 import { UrlByShortIdPipe } from '../UrlByShortIdPipe';
+import { RateThrottlerGuard } from '../../security/RateThrottlerGuard';
 
 
 @Controller('/urls')
@@ -9,7 +10,10 @@ export class UrlController {
   constructor (private urlService: UrlService) {}
 
   @Post()
-  async create (@Body() data: CreateUrlDto) {
+  @UseGuards(RateThrottlerGuard)
+  async create (
+    @Body() data: CreateUrlDto
+  ) {
     return this.urlService.create(data);
   }
 
