@@ -4,6 +4,9 @@ import { PrismaModule } from './modules/PrismaModule';
 import { UserModule } from './modules/UserModule';
 import { UrlModule } from './modules/UrlModule';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ConfigurationModule } from './modules/ConfigModule';
+import Config from './config/Config';
+import * as process from 'process';
 
 @Module({
   imports: [
@@ -15,6 +18,11 @@ import { ThrottlerModule } from '@nestjs/throttler';
       ttl: 60000,
       limit: 3,
     }]),
+    ConfigurationModule.forRoot({
+      isGlobal: true,
+      envFilePath: [`.${process.env.NODE_ENV}.env`, '.env'],
+      load: [Config],
+    }),
   ],
 })
 export class AppModule {}

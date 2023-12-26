@@ -8,6 +8,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from '../security/LocalStrategy';
 import { JwtStrategy } from '../security/JwtStrategy';
 import { JwtGuard } from '../security/JwtGuard';
+import { ConfigurationModule } from './ConfigModule';
+import { SecurityConfigService } from '../config/SecurityConfigService';
 
 
 @Module({
@@ -15,9 +17,16 @@ import { JwtGuard } from '../security/JwtGuard';
     PassportModule,
     UserModule,
     PrismaModule,
-    JwtModule.register({
-      secret: 'idinahui',
-      signOptions: { expiresIn: '3d' },
+    ConfigurationModule,
+    JwtModule.registerAsync({
+      imports: [ConfigurationModule],
+      inject: [SecurityConfigService],
+      useFactory: (configService: SecurityConfigService) => ({
+        secret: configService.secret,
+        signOptions: {
+          expiresIn: '2d',
+        },
+      }),
     }),
   ],
   controllers: [AuthController],

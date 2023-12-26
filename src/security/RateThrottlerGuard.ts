@@ -15,7 +15,7 @@ export class RateThrottlerGuard extends ThrottlerGuard {
 
     if (token) {
       try {
-        payload = verify(token, 'supercoolsecret');
+        payload = verify(token, process.env.JWT_SECRET);
       } catch (error) {
         throw new UnauthorizedException();
       }

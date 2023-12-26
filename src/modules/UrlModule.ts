@@ -5,11 +5,11 @@ import { PrismaModule } from './PrismaModule';
 import { UrlRepository } from '../db/repositories/UrlRepository';
 import { JwtStrategy } from '../security/JwtStrategy';
 import { UserRepository } from '../db/repositories/UserRepository';
-import { Reflector } from '@nestjs/core';
+import { ConfigurationModule } from './ConfigModule';
 
 @Module({
-  imports: [PrismaModule],
+  imports: [PrismaModule, ConfigurationModule],
   controllers: [UrlController],
-  providers: [UrlService, UrlRepository, JwtStrategy, UserRepository, Reflector],
+  providers: [UrlService, UrlRepository, JwtStrategy, UserRepository],
 })
 export class UrlModule {}
