@@ -6,10 +6,17 @@ import { UrlRepository } from '../db/repositories/UrlRepository';
 import { JwtStrategy } from '../security/JwtStrategy';
 import { UserRepository } from '../db/repositories/UserRepository';
 import { ConfigurationModule } from './ConfigModule';
+import { ActionRepository } from '../db/repositories/ActionRepository';
 
 @Module({
   imports: [PrismaModule, ConfigurationModule],
   controllers: [UrlController],
-  providers: [UrlService, UrlRepository, JwtStrategy, UserRepository],
+  providers: [
+    UrlService,
+    UrlRepository,
+    ActionRepository,
+    JwtStrategy,
+    UserRepository,
+  ],
 })
 export class UrlModule {}
