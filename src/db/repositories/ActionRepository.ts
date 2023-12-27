@@ -18,4 +18,8 @@ export class ActionRepository {
       },
     });
   }
+
+  async countWhere (where: Prisma.ActionWhereInput) {
+    return this.prismaService.action.count({ where });
+  }
 }

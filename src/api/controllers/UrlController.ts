@@ -5,6 +5,7 @@ import { UrlByShortIdPipe } from '../pipes/UrlByShortIdPipe';
 import { RateThrottlerGuard } from '../../security/RateThrottlerGuard';
 import { OptionalJwtAuthGuard } from '../../security/OptionalJwtAuthGuard';
 import { JwtGuard } from '../../security/JwtGuard';
+import { UrlByIdPipe } from '../pipes/UrlByIdPipe';
 
 
 @Controller('/urls')
@@ -21,7 +22,7 @@ export class UrlController {
   }
 
   @UseGuards(OptionalJwtAuthGuard)
-  @Get('/:shortId')
+  @Get('/short/:shortId')
   async redirect (
     @Param('shortId', UrlByShortIdPipe) shortId: string,
     @Request() req,
@@ -35,5 +36,14 @@ export class UrlController {
   @Get()
   async getAllForUser (@Request() req) {
     return this.urlService.getAllForUser(req.user);
+  }
+
+  @UseGuards(JwtGuard)
+  @Get('/:urlId')
+  async getStats (
+    @Request() req,
+    @Param('urlId', UrlByIdPipe) urlId: string
+  ) {
+    return this.urlService.getStats(urlId, req.user);
   }
 }

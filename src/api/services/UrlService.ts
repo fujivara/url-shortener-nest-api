@@ -50,4 +50,18 @@ export class UrlService {
       type: ActionType.CREATE,
     });
   }
+
+  async getStats (urlId: string, user: User) {
+    const clicks = await this.actionRepository.countWhere({
+      urlId,
+      type: ActionType.CLICK,
+    });
+    const userClicks = await this.actionRepository.countWhere({
+      urlId,
+      userId: user.id,
+      type: ActionType.CLICK,
+    });
+
+    return { clicks, userClicks };
+  }
 }
