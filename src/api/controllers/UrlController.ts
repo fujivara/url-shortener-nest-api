@@ -10,8 +10,8 @@ import { OptionalJwtAuthGuard } from '../../security/OptionalJwtAuthGuard';
 export class UrlController {
   constructor (private urlService: UrlService) {}
 
+  @UseGuards(OptionalJwtAuthGuard, RateThrottlerGuard)
   @Post()
-  @UseGuards(RateThrottlerGuard)
   async create (
     @Request() req,
     @Body() data: CreateUrlDto
