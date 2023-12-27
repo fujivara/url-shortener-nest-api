@@ -1,7 +1,7 @@
 import { Body, Controller, Request, Get, Param, Post, Response, UseGuards } from '@nestjs/common';
 import { UrlService } from '../services/UrlService';
 import { CreateUrlDto } from '../dtos/CreateUrlDto';
-import { UrlByShortIdPipe } from '../UrlByShortIdPipe';
+import { UrlByShortIdPipe } from '../pipes/UrlByShortIdPipe';
 import { RateThrottlerGuard } from '../../security/RateThrottlerGuard';
 import { OptionalJwtAuthGuard } from '../../security/OptionalJwtAuthGuard';
 import { JwtGuard } from '../../security/JwtGuard';

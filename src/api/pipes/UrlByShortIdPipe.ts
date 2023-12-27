@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
-import { UrlRepository } from '../db/repositories/UrlRepository';
+import { UrlRepository } from '../../db/repositories/UrlRepository';
 
 @Injectable()
 export class UrlByShortIdPipe implements PipeTransform<string, Promise<string>> {
