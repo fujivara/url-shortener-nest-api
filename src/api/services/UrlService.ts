@@ -43,4 +43,11 @@ export class UrlService {
 
     return url;
   }
+
+  async getAllForUser (user: User) {
+    return this.actionRepository.findUrlsWhere({
+      userId: user.id,
+      type: ActionType.CREATE,
+    });
+  }
 }

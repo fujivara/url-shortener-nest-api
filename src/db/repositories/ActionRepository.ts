@@ -9,4 +9,13 @@ export class ActionRepository {
   async create (data: Prisma.ActionUncheckedCreateInput) {
     return this.prismaService.action.create({ data });
   }
+
+  async findUrlsWhere (where: Prisma.ActionWhereInput) {
+    return this.prismaService.action.findMany({
+      where,
+      select: {
+        url: true,
+      },
+    });
+  }
 }

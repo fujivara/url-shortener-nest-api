@@ -4,6 +4,7 @@ import { CreateUrlDto } from '../dtos/CreateUrlDto';
 import { UrlByShortIdPipe } from '../UrlByShortIdPipe';
 import { RateThrottlerGuard } from '../../security/RateThrottlerGuard';
 import { OptionalJwtAuthGuard } from '../../security/OptionalJwtAuthGuard';
+import { JwtGuard } from '../../security/JwtGuard';
 
 
 @Controller('/urls')
@@ -28,5 +29,11 @@ export class UrlController {
   ) {
     const url = await this.urlService.getByShortId(shortId, req.user);
     res.redirect(url.full);
+  }
+
+  @UseGuards(JwtGuard)
+  @Get()
+  async getAllForUser (@Request() req) {
+    return this.urlService.getAllForUser(req.user);
   }
 }
