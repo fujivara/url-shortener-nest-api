@@ -30,7 +30,17 @@ export class UrlService {
     return url;
   }
 
-  async getByShortId (short: string) {
-    return this.urlRepository.findWhere({ short });
+  async getByShortId (short: string, user: User) {
+    const url = await this.urlRepository.findWhere({ short });
+
+    if (user) {
+      await this.actionRepository.create({
+        urlId: url.id,
+        userId: user.id,
+        type: ActionType.CLICK,
+      });
+    }
+
+    return url;
   }
 }
