@@ -1,4 +1,4 @@
-import { Body, Controller, Request, Get, Param, Post, Response, UseGuards } from '@nestjs/common';
+import { Body, Controller, Request, Get, Param, Post, Response, UseGuards, Query } from '@nestjs/common';
 import { UrlService } from '../services/UrlService';
 import { CreateUrlDto } from '../dtos/CreateUrlDto';
 import { UrlByShortIdPipe } from '../pipes/UrlByShortIdPipe';
@@ -6,6 +6,7 @@ import { RateThrottlerGuard } from '../../security/RateThrottlerGuard';
 import { OptionalJwtAuthGuard } from '../../security/OptionalJwtAuthGuard';
 import { JwtGuard } from '../../security/JwtGuard';
 import { UrlByIdPipe } from '../pipes/UrlByIdPipe';
+import { LimitQueryDto } from '../dtos/LimitQueryDto';
 
 
 @Controller('/urls')
@@ -39,11 +40,16 @@ export class UrlController {
   }
 
   @UseGuards(JwtGuard)
-  @Get('/:urlId')
+  @Get('/:urlId/stats')
   async getStats (
     @Request() req,
     @Param('urlId', UrlByIdPipe) urlId: string
   ) {
     return this.urlService.getStats(urlId, req.user);
+  }
+
+  @Get('/top')
+  async getMostPopular (@Query() query: LimitQueryDto) {
+    return this.urlService.getMostPopular(query.limit);
   }
 }

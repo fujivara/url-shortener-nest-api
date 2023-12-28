@@ -64,4 +64,8 @@ export class UrlService {
 
     return { clicks, userClicks };
   }
+
+  async getMostPopular (limit: number) {
+    return this.urlRepository.groupByFull(limit || 10);
+  }
 }

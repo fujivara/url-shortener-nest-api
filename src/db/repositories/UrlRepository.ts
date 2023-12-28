@@ -15,4 +15,13 @@ export class UrlRepository {
   async findWhere (where: Prisma.UrlWhereInput) {
     return this.prismaService.url.findFirst({ where });
   }
+
+  async groupByFull (limit: number) {
+    return this.prismaService.$queryRaw`  
+    SELECT urls."full", COUNT("full") AS full_count
+    FROM urls
+    GROUP BY "full"
+    ORDER BY full_count DESC
+    LIMIT ${Number(limit)}`;
+  }
 }
