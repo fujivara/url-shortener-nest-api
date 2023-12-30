@@ -2,13 +2,13 @@ import { Body, Controller, Request, Get, Param, Post, Response, UseGuards, Query
 import { UrlService } from '../services/UrlService';
 import { CreateUrlDto } from '../dtos/CreateUrlDto';
 import { UrlByShortIdPipe } from '../pipes/UrlByShortIdPipe';
-import { RateThrottlerGuard } from '../../security/RateThrottlerGuard';
-import { OptionalJwtAuthGuard } from '../../security/OptionalJwtAuthGuard';
-import { JwtGuard } from '../../security/JwtGuard';
+import { RateThrottlerGuard } from '../../security/guards/RateThrottlerGuard';
+import { OptionalJwtAuthGuard } from '../../security/guards/OptionalJwtAuthGuard';
+import { JwtGuard } from '../../security/guards/JwtGuard';
 import { UrlByIdPipe } from '../pipes/UrlByIdPipe';
 import { LimitQueryDto } from '../dtos/LimitQueryDto';
 import { Role } from '../../security/Role';
-import { RoleGuard } from '../../security/RoleGuard';
+import { RoleGuard } from '../../security/guards/RoleGuard';
 
 
 @Controller('/urls')

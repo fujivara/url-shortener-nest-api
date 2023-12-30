@@ -7,7 +7,7 @@ import { PrismaModule } from './PrismaModule';
 import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from '../security/LocalStrategy';
 import { JwtStrategy } from '../security/JwtStrategy';
-import { JwtGuard } from '../security/JwtGuard';
+import { JwtGuard } from '../security/guards/JwtGuard';
 import { ConfigurationModule } from './ConfigModule';
 import { SecurityConfigService } from '../config/SecurityConfigService';
 
