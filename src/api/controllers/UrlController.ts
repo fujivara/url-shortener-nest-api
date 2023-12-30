@@ -7,6 +7,8 @@ import { OptionalJwtAuthGuard } from '../../security/OptionalJwtAuthGuard';
 import { JwtGuard } from '../../security/JwtGuard';
 import { UrlByIdPipe } from '../pipes/UrlByIdPipe';
 import { LimitQueryDto } from '../dtos/LimitQueryDto';
+import { Role } from '../../security/Role';
+import { RoleGuard } from '../../security/RoleGuard';
 
 
 @Controller('/urls')
@@ -48,6 +50,8 @@ export class UrlController {
     return this.urlService.getStats(urlId, req.user);
   }
 
+  @Role('ADMIN')
+  @UseGuards(JwtGuard, RoleGuard)
   @Get('/top')
   async getMostPopular (@Query() query: LimitQueryDto) {
     return this.urlService.getMostPopular(query.limit);
