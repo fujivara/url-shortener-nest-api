@@ -8,4 +8,12 @@ export class SecurityConfigService {
   get secret (): string {
     return this.configService.get<string>('security.secret');
   }
+
+  get ttl (): number {
+    return this.configService.get<number>('rateLimit.ttl');
+  }
+
+  get limit (): number {
+    return this.configService.get<number>('rateLimit.limit');
+  }
 }

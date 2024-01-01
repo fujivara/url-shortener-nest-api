@@ -6,7 +6,7 @@ import { UrlModule } from './modules/UrlModule';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ConfigurationModule } from './modules/ConfigModule';
 import Config from './config/Config';
-import * as process from 'process';
+import { SecurityConfigService } from './config/SecurityConfigService';
 
 @Module({
   imports: [
@@ -14,13 +14,19 @@ import * as process from 'process';
     PrismaModule,
     UserModule,
     UrlModule,
-    ThrottlerModule.forRoot([{
-      ttl: 60000,
-      limit: 3,
-    }]),
+    ThrottlerModule.forRootAsync({
+      imports: [ConfigurationModule],
+      inject: [SecurityConfigService],
+      useFactory: (config: SecurityConfigService) => [
+        {
+          ttl: config.ttl,
+          limit: config.limit,
+        },
+      ],
+    }),
     ConfigurationModule.forRoot({
       isGlobal: true,
-      envFilePath: [`.${process.env.NODE_ENV}.env`, '.env'],
+      envFilePath: ['.env'],
       load: [Config],
     }),
   ],
