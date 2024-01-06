@@ -15,8 +15,6 @@ export class RateThrottlerGuard extends ThrottlerGuard {
       if (totalHits > limit) {
         throw new ThrottlerException();
       }
-    } else {
-      console.log(request.user);
     }
 
     return true;
