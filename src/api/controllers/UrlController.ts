@@ -2,7 +2,6 @@ import { Body, Controller, Request, Get, Param, Post, Response, UseGuards, Query
 import { UrlService } from '../services/UrlService';
 import { CreateUrlDto } from '../dtos/CreateUrlDto';
 import { UrlByShortIdPipe } from '../pipes/UrlByShortIdPipe';
-import { RateThrottlerGuard } from '../../security/guards/RateThrottlerGuard';
 import { OptionalJwtAuthGuard } from '../../security/guards/OptionalJwtAuthGuard';
 import { JwtGuard } from '../../security/guards/JwtGuard';
 import { UrlByIdPipe } from '../pipes/UrlByIdPipe';
@@ -15,7 +14,7 @@ import { RoleGuard } from '../../security/guards/RoleGuard';
 export class UrlController {
   constructor (private urlService: UrlService) {}
 
-  @UseGuards(OptionalJwtAuthGuard, RateThrottlerGuard)
+  @UseGuards(OptionalJwtAuthGuard)
   @Post()
   async create (
     @Request() req,
