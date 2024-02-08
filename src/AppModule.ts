@@ -26,7 +26,7 @@ import { SecurityConfigService } from './config/SecurityConfigService';
     }),
     ConfigurationModule.forRoot({
       isGlobal: true,
-      envFilePath: ['.env'],
+      envFilePath: [process.env.NODE_ENV, '.env'],
       load: [Config],
     }),
   ],
